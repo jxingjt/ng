@@ -1,0 +1,18 @@
+/data/wwwlogs/*.log {
+        daily 
+        rotate 7
+        missingok
+        notifempty
+        compress
+        olddir /data/wwwlogs/oldlogs
+        nodelaycompress
+        copytruncate
+        dateext
+        dateformat -%Y%m%d
+        dateyesterday
+        postrotate
+            if [ -f /usr/local/nginx/logs/nginx.pid ]; then
+                kill -USR1 `cat /usr/local/nginx/logs/nginx.pid`
+            fi
+        endscript
+}
